@@ -23,9 +23,27 @@ namespace week07
         {
             InitializeComponent();
 
-            Population = GetPopulation(@"C:\Temp\nép.csv");
-            BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
-            DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
+            Population = GetPopulation(@"C:\Windows\Temp\nép.csv");
+            BirthProbabilities = GetBirthProbabilities(@"C:\Windows\Temp\születés.csv");
+            DeathProbabilities = GetDeathProbabilities(@"C:\Windows\Temp\halál.csv");
+
+            for (int year = 2005; year <= 2024; year++)
+            {
+                for (int i = 0; i < Population.Count; i++)
+                {
+
+                }
+
+                int nbrOfMales = (from x in Population
+                                  where x.Gender == Gender.Male && x.IsAlive
+                                  select x).Count();
+                int nbrOfFemales = (from x in Population
+                                    where x.Gender == Gender.Female && x.IsAlive
+                                    select x).Count();
+
+                Console.WriteLine(string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
+            }
+
         }
 
         public List<Person> GetPopulation(string csvpath)
@@ -61,7 +79,7 @@ namespace week07
                     {
                         BirthYear = int.Parse(line[0]),
                         NbrOfChildren = int.Parse(line[1]),
-                        BirthP = int.Parse(line[2])
+                        BirthP = double.Parse(line[2])
                     });
                 }
             }
@@ -82,7 +100,7 @@ namespace week07
                     {
                         Gender = (Gender)Enum.Parse(typeof(Gender), line[0]),
                         BirthYear = int.Parse(line[1]),
-                        DeathP = int.Parse(line[3])
+                        DeathP = double.Parse(line[2])
                     });
                 }
             }
