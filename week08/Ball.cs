@@ -29,7 +29,7 @@ namespace week08
             g.FillEllipse(new SolidBrush(Color.Blue), 0, 0, Width, Height);
         }
 
-        void MoveBall()
+        public void MoveBall()
         {
             Left += 1;
         }
